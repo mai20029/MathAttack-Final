@@ -32,6 +32,7 @@ import com.sawan.mathattack.asset.Backgrounds;
 import com.sawan.mathattack.asset.ChaptersAssets;
 import com.sawan.mathattack.asset.UIAssets;
 import com.sawan.mathattack.buttons.MathAttackButton;
+import com.sawan.mathattack.constants.MAConstants;
 import com.sawan.mathattack.game.AbstractGame;
 import com.sawan.mathattack.game_screens.levels.MALevelScreen;
 import com.sawan.mathattack.game_screens.main.MAMainMenuScreen;
@@ -41,24 +42,36 @@ import com.sawan.mathattack.scene2d.ui.MenuCreator;
 import com.sawan.mathattack.screen.AbstractScreen;
 import com.sawan.mathattack.settings.AppSettings;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Sawan J. Kapai Harpalani
+ * The Class MAChapterScreen.
  *
+ * @author Sawan J. Kapai Harpalani
  */
 public class MAChapterScreen extends AbstractScreen implements IScreen {
+
+/** The chapters. */
 Table chapters;
-	
+
+/** The chapter. */
+public int chapter;	
 	
 	/**
-	 * @param game
-	 * @param screenName
+	 * Instantiates a new MA chapter screen.
+	 *
+	 * @param game the game
+	 * @param screenName the screen name
 	 */
 	public MAChapterScreen(AbstractGame game, String screenName) {
 		super(game, screenName);
 		setUpScreenElements();
 		setUpChapters();
+		chapter = 0;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.sawan.mathattack.interfaces.IScreen#setUpScreenElements()
+	 */
 	@Override
 	public void setUpScreenElements() {
 		// TODO Auto-generated method stub
@@ -67,12 +80,18 @@ Table chapters;
 		setBackButtonActive(true);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.sawan.mathattack.interfaces.IScreen#setUpMenu()
+	 */
 	@Override
 	public void setUpMenu() {
 		// TODO Auto-generated method stub
 		
 	}
 	
+	/**
+	 * Sets the up chapters.
+	 */
 	public void setUpChapters() {
 		chapters = MenuCreator.createTable(false, UIAssets.getSkin());
 		chapters.setSize(1000f * AppSettings.getWorldSizeRatio(), 300f * AppSettings.getWorldSizeRatio());
@@ -83,9 +102,9 @@ Table chapters;
 		//Drawable background = new TextureRegionDrawable(UIAssets.image_empty_bg);
 		//chapters.setBackground(background);
 		
-	    EmptyActorLight add = new EmptyActorLight(300f, 279f, true);
-	    EmptyActorLight sub = new EmptyActorLight(300f, 279, true);
-	    EmptyActorLight mult = new EmptyActorLight(300f, 279f, true);
+	    EmptyActorLight add = new EmptyActorLight(MAConstants.CHAPTER_WIDTH, MAConstants.CHAPTER_HEIGHT, true);
+	    EmptyActorLight sub = new EmptyActorLight(MAConstants.CHAPTER_WIDTH, MAConstants.CHAPTER_HEIGHT, true);
+	    EmptyActorLight mult = new EmptyActorLight(MAConstants.CHAPTER_WIDTH, MAConstants.CHAPTER_HEIGHT, true);
 		
 	    add.setTextureRegion(ChaptersAssets.image_chapter_add, true);
 	    sub.setTextureRegion(ChaptersAssets.image_chapter_sub, true);
@@ -99,7 +118,8 @@ Table chapters;
 			@Override
 				public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 					super.touchUp(event, x, y, pointer, button);
-					getGame().setScreen(new MALevelScreen(getGame(), "Main Menu"));
+					chapter = 1;
+					getGame().setScreen(new MALevelScreen(getGame(), "Main Menu", chapter));
 				}
 			});
 	    
@@ -107,7 +127,8 @@ Table chapters;
 			@Override
 				public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 					super.touchUp(event, x, y, pointer, button);
-					getGame().setScreen(new MALevelScreen(getGame(), "Main Menu"));
+					chapter = 2;
+					getGame().setScreen(new MALevelScreen(getGame(), "Main Menu", chapter));
 				}
 			});
 	    
@@ -115,11 +136,12 @@ Table chapters;
 			@Override
 				public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 					super.touchUp(event, x, y, pointer, button);
-					getGame().setScreen(new MALevelScreen(getGame(), "Main Menu"));
+					chapter = 3;
+					getGame().setScreen(new MALevelScreen(getGame(), "Main Menu", chapter));
 				}
 			});
 	    
-		MathAttackButton home = new MathAttackButton(63f, 66f, null, true);
+		MathAttackButton home = new MathAttackButton(MAConstants.SMALL_BUTTON_WIDTH, MAConstants.SMALL_BUTTON_HEIGHT, null, true);
 		home.setTextureRegion(UIAssets.image_home_icon, true);
 		
 		home.addListener(new ActorGestureListener() {
@@ -136,6 +158,9 @@ Table chapters;
 		getStage().addActor(chapters);
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.sawan.mathattack.screen.AbstractScreen#keyBackPressed()
+	 */
 	@Override
 	public void keyBackPressed() {
 		super.keyBackPressed();

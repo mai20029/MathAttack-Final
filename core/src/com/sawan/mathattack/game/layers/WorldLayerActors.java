@@ -43,21 +43,48 @@ import com.sawan.mathattack.models.characters.enemies.MAMonster;
 import com.sawan.mathattack.scene2d.AbstractWorldScene2d;
 import com.sawan.mathattack.settings.AppSettings;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Sawan
+ * The Class WorldLayerActors.
  *
+ * @author Sawan
  */
 public class WorldLayerActors extends AbstractWorldScene2d {
 	
+	/** The game manager. */
 	private MAGameManager gameManager;
+	
+	/** The hero. */
 	public Hero hero;
+	
+	/** The enemies. */
 	public ArrayList<MAMonster> enemies;
+	
+	/** The bullets. */
 	public ArrayList<Bullet> bullets;
 	
-	protected final static int NUM_ENEMIES = 20;
+	/** The Constant NUM_ENEMIES. */
+	protected final static int NUM_ENEMIES = 15;
 	
+	/** The Constant SPEED. */
+	protected final static int SPEED = 80;
+	
+	/** The Constant BULLET_SIZE. */
+	protected final static float BULLET_SIZE = 60f;
+	
+	/** The level. */
 	public int level;
 	
+	/**
+	 * Instantiates a new world layer actors.
+	 *
+	 * @param gameManager the game manager
+	 * @param posX the pos x
+	 * @param posY the pos y
+	 * @param worldWidth the world width
+	 * @param worldHeight the world height
+	 * @param level the level
+	 */
 	public WorldLayerActors(MAGameManager gameManager, float posX, float posY, float worldWidth, float worldHeight, int level) {
 		super(posX, posY, worldWidth, worldHeight);
 		this.gameManager =  gameManager;
@@ -67,6 +94,9 @@ public class WorldLayerActors extends AbstractWorldScene2d {
 		
 	}
 	
+	/**
+	 * Sets the up hero.
+	 */
 	public void setUpHero() {
 		hero = new Hero(gameManager.worldLayer_background.SOIL_WIDHT, gameManager.worldLayer_background.SOIL_HEIGHT, true);
 		bullets = new ArrayList<Bullet>();
@@ -78,6 +108,9 @@ public class WorldLayerActors extends AbstractWorldScene2d {
 		addActor(hero);
 	}
 	
+	/**
+	 * Sets the up enemies.
+	 */
 	public void setUpEnemies() {
 		enemies = new ArrayList<MAMonster>();
 		Random rnd = new Random();
@@ -94,8 +127,8 @@ public class WorldLayerActors extends AbstractWorldScene2d {
 			
 			current_monster.setAnimation(MonsterAssets.monster_walking, true, true);
 			
-			float rndSpeed = rnd.nextInt(100) + 20;
-			current_monster.startMoving(gameManager.getStage().getWidth(), rndSpeed, true, false);
+			float rndSpeed = rnd.nextInt(SPEED) + 20;
+			current_monster.startMoving(gameManager.getStage().getWidth(), rndSpeed * AppSettings.getWorldPositionXRatio(), true, false);
 			
 			enemies.add(current_monster);
 			addActor(current_monster);
@@ -104,6 +137,9 @@ public class WorldLayerActors extends AbstractWorldScene2d {
 		}
 	}
 	
+	/**
+	 * Kill hero.
+	 */
 	public void killHero() {
 		
 			hero.setAnimationMomentary(HeroAssests.hero_faint, true, null, true, true);
@@ -116,6 +152,11 @@ public class WorldLayerActors extends AbstractWorldScene2d {
 	}
 
 	
+	/**
+	 * Checks if is hero alive.
+	 *
+	 * @return true, if is hero alive
+	 */
 	public boolean isHeroAlive() {
 		 if (hero.isAlive()) {
 			return true;
@@ -124,12 +165,21 @@ public class WorldLayerActors extends AbstractWorldScene2d {
 		}
 	}
 	
+	/**
+	 * Game win.
+	 */
 	public void gameWin() {
 		if (enemies.isEmpty() && hero.getLifes() > 0) {
 			gameManager.setGameState(GameState.GAME_LEVELWIN);
 		}
 	}
 	
+	/**
+	 * Check collision.
+	 *
+	 * @param hero the hero
+	 * @param enemies the enemies
+	 */
 	public void checkCollision(Hero hero, ArrayList<MAMonster> enemies) {
 		for (Iterator<MAMonster> iterator = enemies.iterator(); iterator.hasNext();) {
 			MAMonster enemy = (MAMonster) iterator.next();
@@ -152,6 +202,12 @@ public class WorldLayerActors extends AbstractWorldScene2d {
 		}
 	}
 
+	/**
+	 * Hit enemy.
+	 *
+	 * @param bullets the bullets
+	 * @param enemies the enemies
+	 */
 	public void hitEnemy(ArrayList<Bullet> bullets, ArrayList<MAMonster> enemies) {
 		for (Iterator<Bullet> iterator_bullets = bullets.iterator(); iterator_bullets.hasNext();) {
 			Bullet bullet = (Bullet) iterator_bullets.next();
@@ -173,15 +229,18 @@ public class WorldLayerActors extends AbstractWorldScene2d {
 		}
 	}
 	
+	/**
+	 * Adds the bullet.
+	 */
 	public void addBullet() {
-		final Bullet bullet = new Bullet(60f, 60f, true);
+		final Bullet bullet = new Bullet(BULLET_SIZE, BULLET_SIZE, true);
 		bullet.setX(hero.getX() + hero.getWidth());
-		bullet.setY((gameManager.worldLayer_background.SOIL_HEIGHT * AppSettings.getWorldPositionYRatio()) + (hero.getHeight() / 2) - bullet.getHeight());
+		bullet.setY((hero.getY()) + (bullet.getHeight() / 2));
 		bullet.setTextureRegion(GameAssets.loadRandomProjectile(), true);
 		
 		bullets.add(bullet);
 		
-		bullet.startMoving(gameManager.getStage().getWidth(), 125f * AppSettings.getWorldPositionXRatio(), true);
+		bullet.startMoving(gameManager.getStage().getWidth(), 150f * AppSettings.getWorldPositionXRatio(), true);
 		
 		addActor(bullet);
 	}
