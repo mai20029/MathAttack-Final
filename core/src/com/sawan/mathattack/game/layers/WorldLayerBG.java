@@ -40,40 +40,21 @@ import com.sawan.mathattack.models.characters.Hero;
 import com.sawan.mathattack.scene2d.AbstractWorldScene2d;
 import com.sawan.mathattack.settings.AppSettings;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class WorldLayerBG.
- *
  * @author Itop1
+ *
  */
 public class WorldLayerBG extends AbstractWorldScene2d {
-	
-	/** The game manager. */
 	MAGameManager gameManager;
 
-	/** The soil widht. */
-	public final float SOIL_WIDHT = 68f;
-	
-	/** The soil height. */
-	public final float SOIL_HEIGHT = 69f;
+	public final float SOIL_WIDHT = 205f / 3;
+	public final float SOIL_HEIGHT = 208f /3;
 	
 	
-	/** The hearts. */
 	private ArrayList<Actor> hearts;
 	
-	/** The level. */
 	public int level;
 	
-	/**
-	 * Instantiates a new world layer bg.
-	 *
-	 * @param gameManager the game manager
-	 * @param posX the pos x
-	 * @param posY the pos y
-	 * @param worldWidth the world width
-	 * @param worldHeight the world height
-	 * @param level the level
-	 */
 	public WorldLayerBG(MAGameManager gameManager, float posX, float posY,
 			float worldWidth, float worldHeight, int level) {
 		super(posX, posY, worldWidth, worldHeight);
@@ -95,16 +76,10 @@ public class WorldLayerBG extends AbstractWorldScene2d {
 		
 	}
 
-	/**
-	 * Sets the up backround.
-	 */
 	private void setUpBackround() {
 		setBackgroundTexture(MALevelAssets.sky, Scaling.stretch, true, false);
 	}
 
-	/**
-	 * Sets the up bottom soils.
-	 */
 	private void setUpBottomSoils() {
 		
 		EmptyActor soil = new EmptyActor(1000f, 550f, true);
@@ -116,9 +91,6 @@ public class WorldLayerBG extends AbstractWorldScene2d {
 		addActor(soil);
 	}
 
-	/**
-	 * Sets the up clouds.
-	 */
 	private void setUpClouds() {
 		Random rnd = new Random();
 		//
@@ -148,9 +120,6 @@ public class WorldLayerBG extends AbstractWorldScene2d {
 		}
 	}
 	
-	/**
-	 * Sets the up mountains.
-	 */
 	public void setUpMountains() {
 		EmptyActorLight mountain = new EmptyActorLight(1000f, 900f, true);
 		
@@ -163,11 +132,6 @@ public class WorldLayerBG extends AbstractWorldScene2d {
 		addActor(mountain);
 	}
 
-	/**
-	 * Sets the up lives.
-	 *
-	 * @param num_lives the new up lives
-	 */
 	public void setUpLives(int num_lives) {
 		hearts = new ArrayList<Actor>();
 		for (int i = 0; i < num_lives; i++) {
@@ -188,9 +152,6 @@ public class WorldLayerBG extends AbstractWorldScene2d {
 		}
 	}
 	
-	/**
-	 * Removes the heart.
-	 */
 	public void removeHeart() {
 		removeActor(hearts.get(hearts.size() - 1));
 		hearts.remove(hearts.size() - 1);
