@@ -31,7 +31,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
-import com.sawan.mathattack.asset.BlueMonsterAssets;
+import com.sawan.mathattack.asset.MonsterAssets;
 import com.sawan.mathattack.asset.GameAssets;
 import com.sawan.mathattack.asset.HeroAssests;
 import com.sawan.mathattack.collision.CollisionDetector;
@@ -54,16 +54,17 @@ public class WorldLayerActors extends AbstractWorldScene2d {
 	public ArrayList<MAMonster> enemies;
 	public ArrayList<Bullet> bullets;
 	
-	protected final static int NUM_ENEMIES = 2;
+	protected final static int NUM_ENEMIES = 20;
 	
 	public int level;
 	
 	public WorldLayerActors(MAGameManager gameManager, float posX, float posY, float worldWidth, float worldHeight, int level) {
 		super(posX, posY, worldWidth, worldHeight);
 		this.gameManager =  gameManager;
+		this.level = level;
 		setUpHero();
 		setUpEnemies();
-		this.level = level;
+		
 	}
 	
 	public void setUpHero() {
@@ -81,6 +82,9 @@ public class WorldLayerActors extends AbstractWorldScene2d {
 		enemies = new ArrayList<MAMonster>();
 		Random rnd = new Random();
 		
+		MonsterAssets.setFILE_IMAGE_ATLAS(level);
+		MonsterAssets.loadAll();
+		
 		for (int i = 0; i < NUM_ENEMIES; i++) {
 			MAMonster current_monster = new MAMonster(gameManager.worldLayer_background.SOIL_WIDHT, gameManager.worldLayer_background.SOIL_HEIGHT, true);
 			
@@ -88,7 +92,7 @@ public class WorldLayerActors extends AbstractWorldScene2d {
 			current_monster.setY(posY);
 			current_monster.setX(gameManager.getStage().getWidth() + (i * (current_monster.getWidth() + 100)));
 			
-			current_monster.setAnimation(BlueMonsterAssets.monster_walking, true, true);
+			current_monster.setAnimation(MonsterAssets.monster_walking, true, true);
 			
 			float rndSpeed = rnd.nextInt(100) + 20;
 			current_monster.startMoving(gameManager.getStage().getWidth(), rndSpeed, true, false);
