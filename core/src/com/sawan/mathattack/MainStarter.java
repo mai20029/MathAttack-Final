@@ -32,34 +32,51 @@ import com.sawan.mathattack.asset.HeroAssests;
 import com.sawan.mathattack.asset.MonsterAssets;
 import com.sawan.mathattack.asset.UIAssets;
 import com.sawan.mathattack.asset.levels.MALevelAssets;
+import com.sawan.mathattack.constants.MAConstants;
 import com.sawan.mathattack.game.AbstractGame;
-import com.sawan.mathattack.game_screens.chapters.MAChapterScreen;
 import com.sawan.mathattack.game_screens.main.MAMainMenuScreen;
 import com.sawan.mathattack.managers.FileManager;
 import com.sawan.mathattack.managers.FileManager.FileType;
 import com.sawan.mathattack.managers.SettingsManager;
 import com.sawan.mathattack.settings.AppSettings;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MainStarter.
+ */
 public class MainStarter extends AbstractGame {
 
+	/* (non-Javadoc)
+	 * @see com.sawan.mathattack.game.AbstractGame#create()
+	 */
 	@Override
 	public void create() {
         super.create();
-		setScreen(new MAChapterScreen(this, "Main Menu"));
+		setScreen(new MAMainMenuScreen(this, "Main Menu"));
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.sawan.mathattack.interfaces.IGame#setUpAppSettings()
+	 */
 	@Override
 	public void setUpAppSettings() {
 		AppSettings.setUp();
 		if (!SettingsManager.isFirstLaunchDone()) {
 			SettingsManager.setFirstLaunchDone(true);
-			FileManager.createTextFileInLocalStorage("profile.data");
-			FileManager.initiateMAFile("profile.data", FileType.LOCAL_FILE);
+			FileManager.createTextFileInLocalStorage(MAConstants.ADDITION_FILE);
+			FileManager.createTextFileInLocalStorage(MAConstants.SUBTRACTION_FILE);
+			FileManager.createTextFileInLocalStorage(MAConstants.MULTIPLICATION_FILE);
+			FileManager.initiateMAFile(MAConstants.ADDITION_FILE, FileType.LOCAL_FILE);
+			FileManager.initiateMAFile(MAConstants.SUBTRACTION_FILE, FileType.LOCAL_FILE);
+			FileManager.initiateMAFile(MAConstants.MULTIPLICATION_FILE, FileType.LOCAL_FILE);
 		}
 		//FileManager.getFile("profile.data", FileType.LOCAL_FILE).delete();
 		//SettingsManager.setFirstLaunchDone(false);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.sawan.mathattack.interfaces.IGame#setUpAssets()
+	 */
 	@Override
 	public void setUpAssets() {
 		UIAssets.loadAll();
@@ -71,6 +88,9 @@ public class MainStarter extends AbstractGame {
 		ChaptersAssets.loadAll();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.sawan.mathattack.interfaces.IGame#setUpLoadingScreen()
+	 */
 	@Override
 	public void setUpLoadingScreen() {
 
