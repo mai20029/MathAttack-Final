@@ -38,7 +38,6 @@ import com.sawan.mathattack.buttons.MathAttackButton;
 import com.sawan.mathattack.constants.MAConstants;
 import com.sawan.mathattack.game.AbstractGame;
 import com.sawan.mathattack.game.screen.MAGameScreen;
-import com.sawan.mathattack.game_screens.chapters.MAChapterScreen;
 import com.sawan.mathattack.game_screens.main.MAMainMenuScreen;
 import com.sawan.mathattack.interfaces.IScreen;
 import com.sawan.mathattack.managers.FileManager;
@@ -189,7 +188,7 @@ public class MALevelScreen extends AbstractScreen implements IScreen {
 	@Override
 	public void keyBackPressed() {
 		super.keyBackPressed();
-		getGame().setScreen(new MAChapterScreen(getGame(), ""));
+		getGame().setScreen(new MAMainMenuScreen(getGame(), ""));
 	}
 	
 	/* (non-Javadoc)
