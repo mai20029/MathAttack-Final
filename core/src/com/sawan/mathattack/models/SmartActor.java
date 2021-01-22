@@ -226,47 +226,40 @@ public class SmartActor extends AbstractActor {
 	 * @see com.sawan.mathattack.scene2d.AbstractActor#act(float)
 	 */
 	@Override
-	public void act(float delta) {
+	public void act(float delta) {     //  we refactor this method to reduce the cognitive complexity from 22 to 15
 		super.act(delta);
 
-		if (isActionMoveFreely) {
-			if (getSecondsTime() > timeLeftForNewMoveDecision) {
+		if ((isActionMoveFreely) && (getSecondsTime() > timeLeftForNewMoveDecision)) {
+
+
 				makeNewMoveFreelyDecision();
-			}
 		}
 
-		if (isActionMoveSideToSide) {
-			if (getSecondsTime() > timeLeftForNewMoveSTSDecision) {
+		if ((isActionMoveSideToSide) &&(getSecondsTime() > timeLeftForNewMoveSTSDecision)) {
+
 				makeNewMoveSTSDecision();
-			}
 		}
 
-		if (isActionFadeInOut) {
-			if (getSecondsTime() > timeLeftForNewFadeInOutDecision) {
-				if (isFadeOut) {
+		if ((isActionFadeInOut) && (getSecondsTime() > timeLeftForNewFadeInOutDecision) && (isFadeOut)){
+
 					fadeIn();
 				} else {
 					fadeOut();
 				}
-			}
-		}
 
-		if (isActionMoveToDirection) {
-			if (isActionMoveToDirectionCompleted()) {
+		if ((isActionMoveToDirection) && (isActionMoveToDirectionCompleted())) {
+
 				makeNewMoveToDirectionDecision();
-			}
 		}
 
-		if (isActionRotate) {
-			if (getSecondsTime() > timeLeftForNewRotateDecision) {
+		if ((isActionRotate) && (getSecondsTime() > timeLeftForNewRotateDecision)) {
+
 				makeNewRotateDecision();
-			}
 		}
 
-		if (isActionScale) {
-			if (getSecondsTime() > timeLeftForNewRScaleDecision) {
+		if ((isActionScale) && (getSecondsTime() > timeLeftForNewRScaleDecision)){
+
 				makeNewScaleDecision();
-			}
 		}
 	}
 
@@ -368,7 +361,7 @@ public class SmartActor extends AbstractActor {
 				+ timeLeftForNewRotateDecision + durationSpeedRotate;
 
 		// FIXME
-		// RANDOM FUCKS THE EFFECT
+		// RANDOM BRAKE THE EFFECT
 		// int rndDuration = rnd.nextInt(durationSpeedRotate) +
 		// durationSpeedRotateMinimum;
 		int rndAngele = getRandomNumber(rnd, rotateAngleRangeStart,

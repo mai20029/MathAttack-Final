@@ -174,6 +174,8 @@ public class GameAssets {
 	 * Load fonts.
 	 */
 	public static void loadFonts() {
+
+		// No fonts created yet
 	
 	}
 
@@ -188,7 +190,9 @@ public class GameAssets {
 	 * Load sounds and musics.
 	 */
 	public static void loadSoundsAndMusics() {
-	
+
+		// No music created yet
+
 	}
 	
 	/**

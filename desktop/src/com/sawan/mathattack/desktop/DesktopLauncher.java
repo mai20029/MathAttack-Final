@@ -24,6 +24,7 @@
  *				http://www.gnu.org/licenses/.
  */
 package com.sawan.mathattack.desktop;
+//package com.badlogic.gdx;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;

@@ -46,10 +46,13 @@ import com.sawan.mathattack.settings.MtxLogger;
 public class UtilsDisposer {
 	
 	/** The Constant logTag. */
-	protected final static String logTag = "MtxUtilsDisposerLog";
-	
+	protected final static String LogTag = "MtxUtilsDisposerLog";   // new rename the constant name to match the regular
+		                                                            // expression  A-Z (the name was logTag)
 	/** The log active. */
 	public static boolean logActive = true;
+	private static String actorDisposedMessage = "Actor disposed";   // new define a static constant intead of duplicating
+							                                          // Actor disposed and Actor dispose fail, 5 times
+	private static String actorFailToDisposeMessage = "Actor dispose FAIL!";
 
 	/**
 	 * Dispose actor from a group.
@@ -62,9 +65,9 @@ public class UtilsDisposer {
 			try {
 				actorToBeDisposed.clear();
 				if (group.removeActor(actorToBeDisposed))
-					log("Actor disposed", actorToBeDisposed);
+					log(actorDisposedMessage, actorToBeDisposed);
 			} catch (Exception e) {
-				log("Actor dispose FAIL!", actorToBeDisposed);
+				log(actorFailToDisposeMessage, actorToBeDisposed);
 			}
 		}
 	}
@@ -80,9 +83,9 @@ public class UtilsDisposer {
 			try {
 				groupToBeDisposed.clear();
 				if (group.removeActor(groupToBeDisposed))
-					log("Actor disposed", groupToBeDisposed);
+					log(actorDisposedMessage, groupToBeDisposed);
 			} catch (Exception e) {
-				log("Actor dispose FAIL!", groupToBeDisposed);
+				log(actorFailToDisposeMessage, groupToBeDisposed);
 			}
 		}
 	}
@@ -98,9 +101,9 @@ public class UtilsDisposer {
 			try {
 				emptyActor.clear();
 				if (group.removeActor(emptyActor))
-					log("Actor disposed", emptyActor);
+					log(actorDisposedMessage, emptyActor);
 			} catch (Exception e) {
-				log("Actor dispose FAIL!", emptyActor);
+				log(actorFailToDisposeMessage, emptyActor);
 			}
 		}
 	}
@@ -139,9 +142,9 @@ public class UtilsDisposer {
 					try {
 						abstractActor.clear();
 						if (group.removeActor(abstractActor))
-							log("Actor disposed", abstractActor);
+							log(actorDisposedMessage, abstractActor);
 					} catch (Exception e) {
-						log("Actor dispose FAIL!", abstractActor);
+						log(actorFailToDisposeMessage, abstractActor);
 					}
 				}
 			}
@@ -163,9 +166,9 @@ public class UtilsDisposer {
 					try {
 						abstractActorLight.clear();
 						if (group.removeActor(abstractActorLight))
-							log("Actor disposed", abstractActorLight);
+							log(actorDisposedMessage, abstractActorLight);
 					} catch (Exception e) {
-						log("Actor dispose FAIL!", abstractActorLight);
+						log(actorFailToDisposeMessage, abstractActorLight);
 					}
 				}
 			}
@@ -206,7 +209,7 @@ public class UtilsDisposer {
 	public static void disposeScreen(AbstractScreen screen) {
 		if (screen.getStage() != null) {
 			screen.getStage().dispose();
-			MtxLogger.log(logActive, true, logTag,
+			MtxLogger.log(logActive, true, LogTag,
 					"Disposed Stage: " + screen.getScreenName());
 			screen = null;
 		}
@@ -223,12 +226,12 @@ public class UtilsDisposer {
 	public static void disposeGame(AbstractGame game) {
 		if (game.getAssets().getAssetManager() != null) {
 			game.getAssets().getAssetManager().dispose();
-			MtxLogger.log(logActive, true, logTag, "Disposed AssetManager");
+			MtxLogger.log(logActive, true, LogTag, "Disposed AssetManager");
 		}
 
 		if (game.getAssets().getSkin() != null) {
 			game.getAssets().getSkin().dispose();
-			MtxLogger.log(logActive, true, logTag, "Disposed Skin");
+			MtxLogger.log(logActive, true, LogTag, "Disposed Skin");
 		}
 	}
 
@@ -239,7 +242,7 @@ public class UtilsDisposer {
 	 * @param actor the actor
 	 */
 	private static void log(String msj, Actor actor) {
-		MtxLogger.log(logActive, true, logTag,
+		MtxLogger.log(logActive, true, LogTag,
 				msj + " (Actor Name: " + actor.getName() + ")");
 	}
 }

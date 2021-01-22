@@ -1,4 +1,8 @@
+
 buildscript {
+
+
+
     repositories {
         mavenCentral()
         jcenter()
@@ -7,7 +11,12 @@ buildscript {
         classpath 'de.richsource.gradle.plugins:gwt-gradle-plugin:0.6'
         classpath 'com.android.tools.build:gradle:1.0.0'
     }
+
 }
+plugins {
+    id "org.sonarqube" version "3.0"
+}
+
 
 allprojects {
     apply plugin: "eclipse"
@@ -30,8 +39,11 @@ allprojects {
     }
 }
 
+
+
 project(":desktop") {
     apply plugin: "java"
+
 
 
     dependencies {
@@ -76,6 +88,7 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
     }
 }
+
 
 tasks.eclipse.doLast {
     delete ".project"

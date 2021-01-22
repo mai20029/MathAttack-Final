@@ -44,6 +44,8 @@ import com.sawan.mathattack.settings.AppSettings;
 /**
  * The Class MainStarter.
  */
+//FileManager.getFile("profile.data", FileType.LOCAL_FILE).delete();
+//SettingsManager.setFirstLaunchDone(false);
 public class MainStarter extends AbstractGame {
 
 	/* (non-Javadoc)
@@ -70,8 +72,7 @@ public class MainStarter extends AbstractGame {
 			FileManager.initiateMAFile(MAConstants.SUBTRACTION_FILE, FileType.LOCAL_FILE);
 			FileManager.initiateMAFile(MAConstants.MULTIPLICATION_FILE, FileType.LOCAL_FILE);
 		}
-		//FileManager.getFile("profile.data", FileType.LOCAL_FILE).delete();
-		//SettingsManager.setFirstLaunchDone(false);
+
 	}
 
 	/* (non-Javadoc)

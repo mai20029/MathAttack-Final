@@ -45,7 +45,7 @@ import com.sawan.mathattack.settings.MtxLogger;
 public class FileManager {
 	//
 	/** The Constant logTag. */
-	protected static final String logTag = "MtxFileManagerLog";
+	protected static final String LogTag = "MtxFileManagerLog";
 	
 	/** The log active. */
 	public static boolean logActive = true;
@@ -89,7 +89,7 @@ public class FileManager {
 		try {
 			while ((currentLine = reader.readLine()) != null) {
 				if (counter == lineNumber) {
-					MtxLogger.log(logActive, true, logTag, "READ LINE: "
+					MtxLogger.log(logActive, true, LogTag, "READ LINE: "
 							+ currentLine);
 					break;
 				}
@@ -97,9 +97,14 @@ public class FileManager {
 			}
 			reader.close();
 		} catch (IOException e) {
-			MtxLogger.log(logActive, true, logTag, "CANT READ LINE: File: "
+			MtxLogger.log(logActive, true, LogTag, "CANT READ LINE: File: "
 					+ strFile + ", Line Number: " + lineNumber);
 			e.printStackTrace();
+		} try {
+				reader.close();								// We use try with resources to close BufferedReader and
+							                               // FileWriter above.
+		}catch (IOException e){
+
 		}
 		return currentLine;
 	}
@@ -119,10 +124,11 @@ public class FileManager {
 			bw.write(value);
 			bw.newLine();
 			bw.close();
-			MtxLogger.log(logActive, true, logTag, "Write New Line: File: "
+			fw.close();
+			MtxLogger.log(logActive, true, LogTag, "Write New Line: File: "
 					+ strFile + ", value: " + value);
 		} catch (IOException e) {
-			MtxLogger.log(logActive, true, logTag, "CANT WRITE LINE: File: "
+			MtxLogger.log(logActive, true, LogTag, "CANT WRITE LINE: File: "
 					+ strFile);
 			e.printStackTrace();
 		}
@@ -151,8 +157,9 @@ public class FileManager {
 				}
 			}
 			bw.close();
+			fw.close();
 		} catch (IOException e) {
-			MtxLogger.log(logActive, true, logTag, "CANT WRITE LINE: File: "
+			MtxLogger.log(logActive, true, LogTag, "CANT WRITE LINE: File: "
 					+ strFile + ", Line Number: " + lineNumber);
 			e.printStackTrace();
 		}
@@ -177,7 +184,7 @@ public class FileManager {
 		try {
 			while ((currentLine = reader.readLine()) != null) {
 				if (counter == lineNumber) {
-					MtxLogger.log(logActive, true, logTag,
+					MtxLogger.log(logActive, true, LogTag,
 							"WRITE EXISTING LINE: OLD: " + currentLine
 									+ " - NEW: " + newValue);
 					lineByLineTextList.add(newValue);
@@ -272,21 +279,21 @@ public class FileManager {
 			try {
 				file = Gdx.files.internal(strFile);
 			} catch (Exception e) {
-				MtxLogger.log(logActive, true, logTag,
+				MtxLogger.log(logActive, true, LogTag,
 						"!!! FILE IS NOT INTERNAL OR NOT EXIST: " + strFile);
 			}
 		} else if (fileType == FileType.LOCAL_FILE) {
 			try {
 				file = Gdx.files.local(strFile);
 			} catch (Exception e) {
-				MtxLogger.log(logActive, true, logTag,
+				MtxLogger.log(logActive, true, LogTag,
 						"!!! FILE IS NOT LOCAL OR NOT EXIST: " + strFile);
 			}
 		} else if (fileType == FileType.EXTERNAL_FILE) {
 			try {
 				file = Gdx.files.external(strFile);
 			} catch (Exception e) {
-				MtxLogger.log(logActive, true, logTag,
+				MtxLogger.log(logActive, true, LogTag,
 						"!!! FILE IS NOT EXTERNAL OR NOT EXIST: " + strFile);
 			}
 		}
